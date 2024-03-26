@@ -2,6 +2,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
+from tensorflow import keras
 from sklearn.model_selection import train_test_split
 
 from helpers.tflite_c_converter import convert_tflite_to_c
@@ -20,42 +21,60 @@ plt.legend()
 plt.show()
 
 # TODO: Add the TensorFlow Keras Sequential model below
-
+model = keras.Sequential(
+    [
+        keras.layers.Dense(1),
+        keras.layers.Dense(30),
+        keras.layers.Dense(30),
+        keras.layers.Dense(1)
+    ]
+)
+opt = 'SGD'
+model.compile(
+    optimizer=opt,
+    loss='mean_squared_error',
+    metrics=['accuracy']
+)
+model.summary()
 
 # TODO: Add the model training (fitting) below
-
+history = model.fit(
+    X_train, y_train,
+    epochs=20,
+    batch_size=40,
+)
 
 # TODO: Optional > Uncomment the following lines to plot the training and validation history
-# # Extracting training and validation loss from training history
-# # Plotting training loss in green and validation loss in blue over epochs
-# loss = history.history['loss']
-# val_loss = history.history['val_loss']
-# x_range = range(1, len(history.epoch) + 1)
-# plt.plot(x_range, loss, 'g.', label='Training loss')
-# plt.plot(x_range, val_loss, 'b', label='Validation loss')
-# plt.title('Training and validation loss')
-# plt.xlabel('Epochs')
-# plt.ylabel('Loss')
-# plt.legend()
-# plt.show()
+# Extracting training and validation loss from training history
+# Plotting training loss in green and validation loss in blue over epochs
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+x_range = range(1, len(history.epoch) + 1)
+plt.plot(x_range, loss, 'g.', label='Training loss')
+plt.plot(x_range, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
 
 # TODO: Uncomment the following lines to plot the actual data versus the predicted function
-# # Make predictions on the test set
-# predictions = model.predict(X_test)
-#
-# # Plot actual vs. predicted values
-# plt.clf()
-# plt.plot(X_test, y_test, 'b.', label='Actual')
-# plt.plot(X_test, predictions, 'r.', label='Predicted')
-# plt.legend()
-# plt.show()
+# Make predictions on the test set
+predictions = model.predict(X_test)
+
+# Plot actual vs. predicted values
+plt.clf()
+plt.plot(X_test, y_test, 'b.', label='Actual')
+plt.plot(X_test, predictions, 'r.', label='Predicted')
+plt.legend()
+plt.show()
 
 # TODO: Uncomment the following lines to save the TensorFlow model
-# # Define a path where models are saved
-# model_path = "models"
-#
-# # Export the trained model
-# model.export(model_path)
+# Define a path where models are saved
+model_path = "models"
+
+# Export the trained model
+model.export(model_path)
 
 # TODO: Convert the saved TensorFlow model to a TensorFlow Lite model
 
