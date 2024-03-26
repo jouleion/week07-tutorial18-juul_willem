@@ -11,7 +11,7 @@ from helpers.function_generator import get_function_samples
 X, y = get_function_samples(samples=2000)
 
 # TODO: Split the data into training and testing sets below
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, shuffle=False)
 
 # Plotting training, testing, and validation data points in blue, yellow, and red respectively,
 # with corresponding labels 'Train', 'Test', 'Valid'
