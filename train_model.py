@@ -24,16 +24,17 @@ plt.show()
 # TODO: Add the TensorFlow Keras Sequential model below
 model = keras.Sequential(
     [
-        keras.layers.Dense(1, activation='relu'),
+        keras.layers.Dense(1),
+        keras.layers.Dense(32, activation='relu'),
         keras.layers.Dense(32, activation='relu'),
         keras.layers.Dense(1)
     ]
 )
-opt = 'RMSprop'
+opt = 'sgd'
 model.compile(
     optimizer=opt,
     loss='mean_squared_error',
-    metrics=['accuracy']
+    metrics=['MAE']
 )
 model.summary()
 
@@ -41,7 +42,6 @@ model.summary()
 history = model.fit(
     X_train, y_train,
     epochs=500,
-    batch_size=40,
 )
 
 # TODO: Optional > Uncomment the following lines to plot the training and validation history
