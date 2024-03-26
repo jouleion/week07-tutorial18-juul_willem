@@ -11,7 +11,7 @@ from helpers.function_generator import get_function_samples
 X, y = get_function_samples(samples=2000)
 
 # TODO: Split the data into training and testing sets below
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, shuffle=False)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
 
 # Plotting training, testing, and validation data points in blue, yellow, and red respectively,
 # with corresponding labels 'Train', 'Test', 'Valid'
@@ -29,7 +29,7 @@ model = keras.Sequential(
         keras.layers.Dense(1)
     ]
 )
-opt = 'SGD'
+opt = 'RMSprop'
 model.compile(
     optimizer=opt,
     loss='mean_squared_error',
@@ -40,7 +40,7 @@ model.summary()
 # TODO: Add the model training (fitting) below
 history = model.fit(
     X_train, y_train,
-    epochs=20,
+    epochs=500,
     batch_size=40,
 )
 
