@@ -24,8 +24,8 @@ plt.show()
 model = keras.Sequential(
     [
         keras.layers.Dense(1),
-        keras.layers.Dense(30),
-        keras.layers.Dense(30),
+        keras.layers.Dense(30, activation="relu"),
+        keras.layers.Dense(30, activation="relu"),
         keras.layers.Dense(1)
     ]
 )
