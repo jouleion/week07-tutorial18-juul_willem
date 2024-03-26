@@ -9,6 +9,7 @@ from helpers.tflite_c_converter import convert_tflite_to_c
 from helpers.function_generator import get_function_samples
 
 X, y = get_function_samples(samples=2000)
+X = X.reshape(-1, 1)
 
 # TODO: Split the data into training and testing sets below
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
@@ -23,9 +24,8 @@ plt.show()
 # TODO: Add the TensorFlow Keras Sequential model below
 model = keras.Sequential(
     [
-        keras.layers.Dense(1),
-        keras.layers.Dense(30, activation="relu"),
-        keras.layers.Dense(30, activation="relu"),
+        keras.layers.Dense(1, activation='relu'),
+        keras.layers.Dense(32, activation='relu'),
         keras.layers.Dense(1)
     ]
 )
